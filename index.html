@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101827">
+<meta name="description" content="TruthLens helps you examine claims, compare evidence, and assess source transparency.">
+<title>TruthLens — Check the claim</title>
+<style>
+:root{--bg:#0b1220;--panel:#121d2d;--panel2:#18263a;--line:#2b3b51;--text:#f2f6fc;--muted:#a7b5c8;--teal:#55d6be;--coral:#ff9f78;--yellow:#ffd166;--blue:#8cb8ff;--radius:18px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at top right,#18334a 0,transparent 38%),var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button,input,textarea,select{font:inherit}button{cursor:pointer}a{color:var(--teal)}.wrap{max-width:1100px;margin:auto;padding:0 18px}
+header{border-bottom:1px solid #ffffff12;position:sticky;top:0;z-index:5;background:#0b1220eF;backdrop-filter:blur(14px)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:72px}.brand{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-size:1.15rem;font-weight:850;letter-spacing:-.04em}.logo{width:39px;height:39px;border-radius:13px;background:linear-gradient(135deg,var(--teal),#8cb8ff);display:grid;place-items:center;color:#0b1220}.logo svg{width:24px;height:24px}.tag{font-size:.75rem;color:var(--teal);border:1px solid #55d6be55;border-radius:99px;padding:5px 9px}
+nav{display:flex;gap:6px;overflow:auto;padding:0 0 12px}nav button{white-space:nowrap;background:transparent;border:1px solid transparent;color:var(--muted);padding:9px 12px;border-radius:11px}nav button.active,nav button:hover{background:var(--panel2);color:var(--text);border-color:var(--line)}
+main{padding:30px 0 50px}.hero{padding:20px 0 24px}.eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:.74rem;font-weight:800;color:var(--teal)}h1{font-size:clamp(2.2rem,7vw,4.2rem);line-height:1.04;letter-spacing:-.065em;margin:10px 0 14px;max-width:760px}.hero p{color:var(--muted);max-width:690px;font-size:1.05rem;margin:0}
+.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(250px,.8fr);gap:18px;align-items:start}.panel{background:linear-gradient(180deg,#152237,#111b2b);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:0 16px 45px #00000012}.panel h2,.panel h3{margin:0 0 7px;letter-spacing:-.025em}.sub{color:var(--muted);font-size:.9rem;margin:0 0 17px}
+label{display:block;font-weight:750;font-size:.9rem;margin:13px 0 7px}input,textarea,select{width:100%;background:#0a1321;color:var(--text);border:1px solid #35465e;border-radius:12px;padding:12px 13px;outline:none}textarea{min-height:145px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:var(--teal);box-shadow:0 0 0 3px #55d6be1a}.row{display:flex;gap:9px;align-items:center}.row>*{flex:1;min-width:0}.btn{border:0;border-radius:12px;padding:12px 15px;font-weight:800;background:var(--teal);color:#07151b}.btn:hover{filter:brightness(1.05)}.btn.secondary{background:#24344a;color:var(--text);border:1px solid #3a4d66}.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}.btn.small{padding:8px 11px;font-size:.84rem}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.notice{font-size:.82rem;color:var(--muted);margin-top:12px}.chips{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.chip{border:1px solid var(--line);border-radius:99px;padding:6px 10px;font-size:.78rem;color:var(--muted);background:#0c1625}
+.side-stat{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}.stat{background:#0b1523;border:1px solid var(--line);padding:13px;border-radius:13px}.stat strong{display:block;font-size:1.45rem}.stat span{color:var(--muted);font-size:.78rem}.mini-list{display:grid;gap:10px}.mini-item{padding:12px;border:1px solid var(--line);border-radius:13px;background:#0d1726}.mini-item strong{display:block;font-size:.92rem}.mini-item span{color:var(--muted);font-size:.8rem}
+.hidden{display:none!important}.results{margin-top:18px}.result-head{display:flex;justify-content:space-between;gap:12px;align-items:start}.pill{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:6px 10px;font-size:.78rem;font-weight:850;background:#26344a;color:var(--yellow)}.pill.good{background:#123c36;color:var(--teal)}.pill.warn{background:#45331c;color:var(--yellow)}.pill.bad{background:#48282c;color:#ff9da5}
+.claim{padding:15px 0;border-top:1px solid var(--line)}.claim:first-of-type{margin-top:12px}.claim p{margin:7px 0 10px}.claim-title{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.09em;font-weight:800}.evidence-links{display:flex;flex-wrap:wrap;gap:8px}.evidence-links a{font-size:.82rem;text-decoration:none;border:1px solid #3a4d66;border-radius:9px;padding:7px 9px}.evidence-links a:hover{background:var(--panel2)}.meter{height:8px;border-radius:99px;background:#26344a;overflow:hidden;margin:8px 0 5px}.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--coral),var(--yellow),var(--teal));width:0}
+.section{margin-top:28px}.section-title{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:12px}.section-title h2{margin:0;font-size:1.45rem}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.feature{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:17px}.feature .icon{font-size:1.4rem}.feature h3{margin:9px 0 5px;font-size:1rem}.feature p{margin:0;color:var(--muted);font-size:.87rem}
+.source-form{display:grid;grid-template-columns:1fr 1fr;gap:12px}.source-form .full{grid-column:1/-1}.rating-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.rating-card{background:#0d1726;border:1px solid var(--line);border-radius:14px;padding:15px}.rating-card h3{font-size:1rem;margin:0 0 4px}.rating-card p{font-size:.83rem;color:var(--muted);margin:0}.score{font-size:1.6rem;font-weight:900;color:var(--teal);margin-top:8px}
+.history-row{display:flex;justify-content:space-between;gap:10px;align-items:start;border-bottom:1px solid var(--line);padding:12px 0}.history-row:last-child{border:0}.history-row p{margin:0;font-weight:700}.history-row small{color:var(--muted)}footer{border-top:1px solid #ffffff12;padding:22px 0 35px;color:var(--muted);font-size:.82rem}.footer-inner{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#e9fff9;color:#10201e;padding:11px 16px;border-radius:12px;font-weight:750;box-shadow:0 8px 30px #0008;z-index:20;max-width:90vw}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.top{min-height:64px}.tag{font-size:.68rem}.panel{padding:16px}.source-form{grid-template-columns:1fr}.source-form .full{grid-column:auto}.rating-grid{grid-template-columns:1fr 1fr}.hero{padding-top:12px}}
+@media(max-width:390px){.wrap{padding:0 12px}.rating-grid{grid-template-columns:1fr}.row.mobile-stack{align-items:stretch;flex-direction:column}.actions .btn{flex:1}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="top">
+    <a class="brand" href="#" aria-label="TruthLens home"><span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5M7.5 10.5l2 2 4-4"/></svg></span>TruthLens</a>
+    <span class="tag">EVIDENCE FIRST</span>
+  </div>
+  <nav aria-label="Main navigation">
+    <button class="active" data-page="check">Check a Claim</button>
+    <button data-page="sources">Source Ratings</button>
+    <button data-page="history">My History <span id="historyCount"></span></button>
+    <button data-page="about">How It Works</button>
+  </nav>
+</div></header>
+<main class="wrap">
+<section class="hero">
+  <div class="eyebrow">Pause. Check. Understand.</div>
+  <h1>Don't just read the claim.<br><span style="color:var(--teal)">Check the evidence.</span></h1>
+  <p>Examine news stories, social posts, and political statements. TruthLens helps you identify checkable claims and find evidence from multiple perspectives.</p>
+</section>
+
+<section id="page-check" class="page">
+<div class="grid">
+  <div class="panel">
+    <h2>Check a story or statement</h2><p class="sub">Paste a URL or text. For best results, include the exact statement you want checked.</p>
+    <div class="row mobile-stack">
+      <button class="btn small" id="modeText" type="button">Paste text</button>
+      <button class="btn small secondary" id="modeUrl" type="button">Use a URL</button>
+    </div>
+    <div id="textInputWrap"><label for="claimText">Text to check</label><textarea id="claimText" placeholder="Example: “The report says the unemployment rate fell by 2% last year.”&#10;&#10;Paste a paragraph, post, quote, or speech excerpt here."></textarea></div>
+    <div id="urlInputWrap" class="hidden"><label for="claimUrl">Article or post URL</label><input id="claimUrl" type="url" placeholder="https://example.com/article"><p class="notice">This GitHub Pages demo cannot safely fetch every website directly. It will prepare research links for the URL; full page extraction needs a backend.</p></div>
+    <label for="category">Content type</label>
+    <select id="category"><option>News article</option><option>Social media post</option><option>Political speech</option><option>Video or interview transcript</option><option>Scientific or health claim</option><option>Other</option></select>
+    <div class="actions"><button id="analyzeBtn" class="btn">Analyze claim →</button><button id="clearBtn" class="btn secondary">Clear</button></div>
+    <p class="notice">Demo mode: this version identifies likely factual sentences and opens independent research searches. It does not pretend to verify a claim without evidence.</p>
+    <div id="resultBox" class="results hidden" aria-live="polite"></div>
+  </div>
+  <aside class="panel">
+    <h2>What a check includes</h2><p class="sub">A transparent assessment, not a mysterious verdict.</p>
+    <div class="mini-list">
+      <div class="mini-item"><strong>1. The exact claim</strong><span>Separate verifiable statements from opinions and rhetoric.</span></div>
+      <div class="mini-item"><strong>2. Evidence to inspect</strong><span>Find existing fact-checks, primary sources, and alternative reporting.</span></div>
+      <div class="mini-item"><strong>3. Confidence & gaps</strong><span>Explain what is known, what is missing, and why the conclusion may be uncertain.</span></div>
+    </div>
+    <div class="side-stat"><div class="stat"><strong id="checksStat">0</strong><span>Checks saved here</span></div><div class="stat"><strong>4</strong><span>Evidence search paths</span></div></div>
+  </aside>
+</div>
+<div class="section"><div class="section-title"><h2>Built for different kinds of claims</h2></div><div class="cards">
+  <div class="feature"><div class="icon">📰</div><h3>News & viral posts</h3><p>Investigate quotes, dates, numbers, headlines, and claims circulating online.</p></div>
+  <div class="feature"><div class="icon">🏛️</div><h3>Politics & public policy</h3><p>Compare campaign statements with official records, legislation, and published data.</p></div>
+  <div class="feature"><div class="icon">🔬</div><h3>Science & health</h3><p>Prioritize peer-reviewed research and relevant public-health or scientific agencies.</p></div>
+</div></div>
+</section>
+
+<section id="page-sources" class="page hidden">
+<div class="panel"><h2>Source transparency review</h2><p class="sub">A framework for assessing a publisher. A source score is not proof that any individual article is true or false.</p>
+  <label for="sourceName">Publisher or website name</label><input id="sourceName" placeholder="e.g., Example News">
+  <label for="sourceUrl">Website URL (optional)</label><input id="sourceUrl" type="url" placeholder="https://example.com">
+  <div class="source-form">
+    <div><label for="sourceCites">Provides citations and links?</label><select id="sourceCites"><option value="2">Usually / clearly</option><option value="1">Sometimes</option><option value="0">Rarely / not visible</option><option value="na">Not sure</option></select></div>
+    <div><label for="sourceCorrections">Correction policy visible?</label><select id="sourceCorrections"><option value="2">Clear and accessible</option><option value="1">Some evidence</option><option value="0">Not found</option><option value="na">Not sure</option></select></div>
+    <div><label for="sourceAuthors">Authors and ownership disclosed?</label><select id="sourceAuthors"><option value="2">Clearly disclosed</option><option value="1">Partly disclosed</option><option value="0">Not disclosed</option><option value="na">Not sure</option></select></div>
+    <div><label for="sourceEvidence">Separates news from opinion?</label><select id="sourceEvidence"><option value="2">Usually clear</option><option value="1">Mixed / unclear</option><option value="0">Often blurred</option><option value="na">Not sure</option></select></div>
+    <div class="full"><label for="sourceNotes">Notes or examples (optional)</label><textarea id="sourceNotes" style="min-height:85px" placeholder="Record specific examples, corrections, missing citations, or independent reviews."></textarea></div>
+  </div>
+  <div class="actions"><button class="btn" id="rateSourceBtn">Create transparency review</button><button class="btn secondary" id="sourceSearchBtn">Research this source ↗</button></div>
+  <div id="sourceResult" class="results hidden"></div>
+  <p class="notice">This is a self-guided checklist, not an objective reputation score. It does not measure political agreement or automatically determine factual accuracy.</p>
+</div>
+<div class="section"><h2>Dimensions to keep separate</h2><div class="rating-grid">
+  <div class="rating-card"><h3>Factual track record</h3><p>Use independently adjudicated claims and show sample size, dates, and rating methodology.</p></div>
+  <div class="rating-card"><h3>Transparency</h3><p>Check authorship, ownership, sourcing, funding disclosures, and accessible corrections.</p></div>
+  <div class="rating-card"><h3>Framing & bias</h3><p>Describe loaded language and framing with examples; don't treat a political viewpoint as proof of falsehood.</p></div>
+  <div class="rating-card"><h3>Evidence quality</h3><p>Prioritize primary documents and relevant expert evidence; distinguish absence of evidence from disproof.</p></div>
+</div></div>
+</section>
+
+<section id="page-history" class="page hidden"><div class="panel"><div class="section-title"><div><h2>My check history</h2><p class="sub" style="margin:5px 0 0">Saved only in this browser on this device.</p></div><button id="clearHistoryBtn" class="btn ghost small">Clear history</button></div><div id="historyList"></div></div></section>
+
+<section id="page-about" class="page hidden">
+<div class="panel"><h2>How TruthLens works</h2><p class="sub">The goal is to make the reasoning visible and the limitations obvious.</p>
+<div class="claim"><div class="claim-title">Step 1 — Extract</div><p>Identify specific, checkable claims. Opinions, predictions, jokes, and vague wording should be marked separately rather than assigned a false/true verdict.</p></div>
+<div class="claim"><div class="claim-title">Step 2 — Search existing checks</div><p>Search fact-check databases and trusted research collections for the same claim, including dates and context.</p></div>
+<div class="claim"><div class="claim-title">Step 3 — Find original evidence</div><p>Prefer the underlying dataset, court ruling, legislation, official transcript, research paper, or direct recording over a chain of articles repeating one another.</p></div>
+<div class="claim"><div class="claim-title">Step 4 — Compare</div><p>Look for independent corroboration and meaningful contradictory evidence. Record source date, author, methods, and limitations.</p></div>
+<div class="claim"><div class="claim-title">Step 5 — Explain the result</div><p>Use calibrated outcomes such as Supported, Contradicted, Misleading/Needs Context, Unverified, and Opinion/Not Checkable. Always show evidence and uncertainty.</p></div>
+<div class="claim"><div class="claim-title">Important technical limitation</div><p>This starter is a static front-end. A real automated service needs a secure backend for page extraction, speech transcription, claim matching, AI-assisted analysis, API calls, rate limiting, and source citations. Do not put private API keys in GitHub Pages JavaScript.</p></div>
+</div>
+<div class="section"><h2>Research tools</h2><div class="cards">
+<div class="feature"><h3>Google Fact Check Explorer</h3><p>Search published fact checks and review their original publishers.</p><a href="https://toolbox.google.com/factcheck/explorer" target="_blank" rel="noopener">Open Fact Check Explorer ↗</a></div>
+<div class="feature"><h3>IFCN</h3><p>Learn about standards and signatories in the fact-checking community.</p><a href="https://ifcncodeofprinciples.poynter.org/" target="_blank" rel="noopener">IFCN Code of Principles ↗</a></div>
+<div class="feature"><h3>Primary sources</h3><p>Search official records, data, research, and original statements.</p><a href="https://www.google.com/" target="_blank" rel="noopener">Search the web ↗</a></div>
+</div></div>
+</section>
+</main>
+<footer><div class="wrap footer-inner"><span><strong>TruthLens</strong> · Evidence before certainty.</span><span>Prototype v0.1 · No claim is verified merely because a search result exists.</span></div></footer>
+<div id="toast" class="toast hidden" role="status"></div>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const KEY='truthlens_history_v1';
+let mode='text';
+let history=loadHistory();
+function loadHistory(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []}}
+function saveHistory(){try{localStorage.setItem(KEY,JSON.stringify(history.slice(0,50)))}catch(e){} updateCounts();renderHistory()}
+function updateCounts(){$('historyCount').textContent=history.length?`(${history.length})`:'';$('checksStat').textContent=history.length}
+function toast(msg){$('toast').textContent=msg;$('toast').classList.remove('hidden');setTimeout(()=>$('toast').classList.add('hidden'),2300)}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function openPage(name){document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));$('page-'+name).classList.remove('hidden');document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===name));if(name==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>openPage(b.dataset.page)));
+function setMode(next){mode=next;$('textInputWrap').classList.toggle('hidden',next!=='text');$('urlInputWrap').classList.toggle('hidden',next!=='url');$('modeText').classList.toggle('secondary',next!=='text');$('modeUrl').classList.toggle('secondary',next!=='url')}
+$('modeText').addEventListener('click',()=>setMode('text'));$('modeUrl').addEventListener('click',()=>setMode('url'));
+function searchLinks(claim){
+ const q=encodeURIComponent(claim);
+ return [
+  ['Google search',`https://www.google.com/search?q=${q}`],
+  ['Fact Check Explorer',`https://toolbox.google.com/factcheck/explorer/search/${q}`],
+  ['News coverage',`https://news.google.com/search?q=${q}`],
+  ['DuckDuckGo',`https://duckduckgo.com/?q=${q}`]
+ ];
+}
+function extractClaims(text){
+ const cleaned=text.replace(/https?:\/\/\S+/g,' ').replace(/\s+/g,' ').trim();
+ let parts=cleaned.split(/(?<=[.!?])\s+(?=[A-Z0-9“"“])/).map(s=>s.trim()).filter(s=>s.length>25);
+ if(!parts.length&&cleaned.length>15)parts=[cleaned];
+ const likely=parts.filter(s=>/\d|%|\b(is|are|was|were|has|have|had|will|caused|increased|decreased|according|reported|proved|shows|found|first|largest|most|never|always|all|none|every)\b/i.test(s));
+ const selected=(likely.length?likely:parts).slice(0,5);
+ return selected;
+}
+function renderClaim(claim,i){
+ const links=searchLinks(claim);
+ return `<div class="claim"><div class="claim-title">Claim ${i+1} · Needs evidence review</div><p>${esc(claim)}</p><div class="evidence-links">${links.map(x=>`<a href="${x[1]}" target="_blank" rel="noopener">${x[0]} ↗</a>`).join('')}</div></div>`;
+}
+$('analyzeBtn').addEventListener('click',()=>{
+ let text=mode==='url'?$('claimUrl').value.trim():$('claimText').value.trim();
+ if(!text){toast(mode==='url'?'Enter a URL first.':'Paste text to analyze first.');return}
+ let sourceUrl=mode==='url'?text:'';
+ let claims=mode==='url'?[`Article or post at ${text} — retrieve and examine the exact wording before rating any claims.`]:extractClaims(text);
+ if(!claims.length){claims=[text]}
+ const item={id:Date.now(),date:new Date().toISOString(),type:$('category').value,input:text,mode,claims};
+ history.unshift(item);saveHistory();
+ $('resultBox').classList.remove('hidden');
+ $('resultBox').innerHTML=`<div class="panel" style="padding:15px;background:#0c1726"><div class="result-head"><div><div class="eyebrow">Preliminary review</div><h3 style="margin:4px 0">Evidence search prepared</h3></div><span class="pill warn">Not yet verified</span></div><p class="sub" style="margin:8px 0 0">TruthLens has not concluded whether these claims are true or false. Open the research links and compare original evidence, dates, and independent sources.</p><div class="claim"><div class="claim-title">Submitted content</div><p>${esc(text.length>700?text.slice(0,700)+'…':text)}</p></div>${claims.map(renderClaim).join('')}<div class="claim"><div class="claim-title">Suggested assessment</div><p>After reviewing the evidence, record a result such as <strong>Supported</strong>, <strong>Contradicted</strong>, <strong>Misleading / Needs Context</strong>, <strong>Unverified</strong>, or <strong>Opinion / Not Checkable</strong>. Explain the reasoning and cite the sources you actually reviewed.</p></div><div class="actions"><button class="btn secondary small" id="copyCheckBtn">Copy claim list</button><button class="btn ghost small" id="saveNoteBtn">Add review note</button></div><div id="noteWrap" class="hidden"><label for="reviewNote">Your evidence notes</label><textarea id="reviewNote" placeholder="What evidence did you find? Which sources support or contradict the claim?"></textarea><button class="btn small" id="saveNoteNow">Save note</button></div></div>`;
+ $('copyCheckBtn').addEventListener('click',()=>copyText(claims.map((c,i)=>`${i+1}. ${c}`).join('\n')));
+ $('saveNoteBtn').addEventListener('click',()=>$('noteWrap').classList.toggle('hidden'));
+ $('saveNoteNow').addEventListener('click',()=>{item.note=$('reviewNote').value;history=history.map(h=>h.id===item.id?item:h);saveHistory();toast('Review note saved on this device.')});
+ $('resultBox').scrollIntoView({behavior:'smooth',block:'start'});
+});
+function copyText(text){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(()=>toast('Copied.')).catch(()=>fallbackCopy(text))}else fallbackCopy(text)}
+function fallbackCopy(text){const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();try{document.execCommand('copy');toast('Copied.')}catch(e){toast('Copy not available; select the text manually.')}t.remove()}
+$('clearBtn').addEventListener('click',()=>{$('claimText').value='';$('claimUrl').value='';$('resultBox').classList.add('hidden')});
+$('rateSourceBtn').addEventListener('click',()=>{
+ const name=$('sourceName').value.trim();if(!name){toast('Enter a publisher or website name first.');return}
+ const fields=['sourceCites','sourceCorrections','sourceAuthors','sourceEvidence'];
+ const labels=['Citations & sourcing','Correction policy','Ownership & authorship','News/opinion separation'];
+ let total=0,answered=0;
+ fields.forEach(id=>{const v=$(id).value;if(v!=='na'){total+=Number(v);answered++}});
+ const possible=answered*2;const pct=possible?Math.round(total/possible*100):null;
+ const unknown=fields.filter(id=>$(id).value==='na').length;
+ $('sourceResult').classList.remove('hidden');
+ $('sourceResult').innerHTML=`<div class="panel" style="padding:15px;background:#0c1726"><div class="eyebrow">Transparency checklist</div><h3>${esc(name)}</h3>${pct===null?'<p>No rated dimensions yet. Mark what you can substantiate.</p>':`<div class="score">${pct}/100</div><div class="meter"><i style="width:${pct}%"></i></div><p class="sub">Checklist completeness score based only on your selections, not factual accuracy or overall trustworthiness.</p>`}<div class="rating-grid">${fields.map((id,i)=>`<div class="rating-card"><h3>${labels[i]}</h3><p>${esc($(id).selectedOptions[0].textContent)}</p></div>`).join('')}</div><p class="notice">${unknown} dimension(s) marked “Not sure”. Unknown information is not evidence of wrongdoing. Add examples and independent evidence before publishing a rating.</p><p>${esc($('sourceNotes').value||'No notes added.')}</p><button id="saveSourceBtn" class="btn small">Save review to history</button></div>`;
+ $('saveSourceBtn').addEventListener('click',()=>{history.unshift({id:Date.now(),date:new Date().toISOString(),type:'Source review',input:name+( $('sourceUrl').value?' — '+$('sourceUrl').value:''),claims:[`Transparency checklist score: ${pct===null?'not rated':pct+'/100'}`,`Notes: ${$('sourceNotes').value||'None'}`]});saveHistory();toast('Source review saved.')});
+});
+$('sourceSearchBtn').addEventListener('click',()=>{const q=[$('sourceName').value,$('sourceUrl').value].filter(Boolean).join(' ');if(!q){toast('Enter a publisher or website first.');return}window.open(`https://www.google.com/search?q=${encodeURIComponent(q+' ownership corrections fact check reviews')}`,'_blank','noopener')});
+function renderHistory(){
+ const list=$('historyList');if(!history.length){list.innerHTML='<p class="sub">No checks saved yet. Analyze a claim to start your history.</p>';updateCounts();return}
+ list.innerHTML=history.map(h=>`<div class="history-row"><div><p>${esc(h.type||'Claim check')}</p><small>${esc(new Date(h.date).toLocaleString())}</small><div style="margin-top:5px">${esc((h.input||'').slice(0,180))}</div>${h.note?`<p style="font-weight:400;color:var(--muted);margin-top:6px">Note: ${esc(h.note)}</p>`:''}</div><button class="btn ghost small" data-delete="${h.id}">Delete</button></div>`).join('');
+ list.querySelectorAll('[data-delete]').forEach(b=>b.addEventListener('click',()=>{history=history.filter(h=>String(h.id)!==b.dataset.delete);saveHistory()}));updateCounts();
+}
+$('clearHistoryBtn').addEventListener('click',()=>{if(confirm('Delete all locally saved TruthLens history?')){history=[];saveHistory();toast('History cleared.')}});
+updateCounts();renderHistory();
+})();
+</script>
+</body>
+</html>
