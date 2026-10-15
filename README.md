@@ -1,2 +1,0 @@
-# Truthlens
-Truth verification app
